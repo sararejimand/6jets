@@ -1,0 +1,17 @@
+body { 
+    margin: 0; 
+    overflow: hidden;
+    position: relative;
+}
+
+#scene1{
+    position: absolute;
+    top: 50px;
+    left: 20px;
+}
+
+#scene2{
+    position: absolute;
+    top: 50px;
+    left: 100px;
+}
