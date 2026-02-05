@@ -10,14 +10,7 @@ let texture;
 let mesh;
 
 let controls;
-let camera2;
 let scene1;
-let scene2;
-let geometry2;
-let material2;
-let texture2;
-let mesh2;
-
 
 let arrowForm;
 let arrowMaterial;
@@ -25,6 +18,11 @@ let arrowRoom;
 let arrowStage;
 let arrowEntrance;
 
+let videoScreen;
+let videoScreen2;
+let videoScreen3;
+let videoScreen4;
+let videoScreen5;
 
 init();
 animate();
@@ -32,15 +30,15 @@ animate();
 const firstScene = document.getElementById('scene1');
 
 /* Buttons to handle scene switch */
-    firstScene.addEventListener('click', () => {
-        scene = scene1;
+firstScene.addEventListener('click', () => {
+    scene = scene1;
 
-        const overlay = document.getElementById('videoOverlay');
-        const player = document.querySelector('#videoOverlay iframe');
-        
-        overlay.style.display = 'none';
-        player.src = ""; 
-    });
+    const overlay = document.getElementById('videoOverlay');
+    const player = document.querySelector('#videoOverlay iframe');
+    
+    overlay.style.display = 'none';
+    player.src = ""; 
+});
 
 
 function init() {
@@ -56,7 +54,7 @@ function init() {
 
     /*
     *********************************************
-    Creation of the first scene
+    Creation of the scene
     *********************************************
     */
     scene1 = new THREE.Scene();
@@ -110,6 +108,92 @@ function init() {
     arrowEntrance.lookAt(0, 0, 0); 
     scene1.add(arrowEntrance);
 
+
+    /*
+    *********************************************
+    Implement the video
+    *********************************************
+    */
+    // students'videos
+    const thumbnail = new THREE.TextureLoader().load('https://img.youtube.com/vi/Zmpag7molU0/hqdefault.jpg');
+    let videoMaterial = new THREE.MeshBasicMaterial({
+        map: thumbnail, 
+        side: THREE.FrontSide
+    });
+
+    let videoForm = new THREE.BoxGeometry(15, 10, 0);
+    videoScreen = new THREE.Mesh(videoForm, videoMaterial);
+    videoScreen.position.set(-5, 3, 42);
+    videoScreen.lookAt(-1, 5, 0); 
+    scene1.add(videoScreen);
+
+    const thumbnail2 = new THREE.TextureLoader().load('https://i3.ytimg.com/vi/xyJQmQPmjI0/sddefault.jpg');
+    let videoMaterial2 = new THREE.MeshBasicMaterial({
+        map: thumbnail2, 
+        side: THREE.FrontSide
+    });
+
+    let videoForm2 = new THREE.BoxGeometry(15, 10, 0);
+    videoScreen2 = new THREE.Mesh(videoForm2, videoMaterial2);
+    videoScreen2.position.set(-25, 3, 38);
+    videoScreen2.lookAt(-18, 3, 0); 
+    scene1.add(videoScreen2);
+
+    const thumbnail3 = new THREE.TextureLoader().load('https://i3.ytimg.com/vi/xyJQmQPmjI0/sddefault.jpg');
+    let videoMaterial3 = new THREE.MeshBasicMaterial({
+        map: thumbnail3, 
+        side: THREE.FrontSide
+    });
+
+    let videoForm3 = new THREE.BoxGeometry(15, 10, 0);
+    videoScreen3 = new THREE.Mesh(videoForm3, videoMaterial3);
+    videoScreen3.position.set(-5, 3, -30);
+    videoScreen3.lookAt(-8, 2, 2); 
+    scene1.add(videoScreen3);
+
+    const thumbnail4 = new THREE.TextureLoader().load('https://i3.ytimg.com/vi/xyJQmQPmjI0/sddefault.jpg');
+    let videoMaterial4 = new THREE.MeshBasicMaterial({
+        map: thumbnail4, 
+        side: THREE.FrontSide
+    });
+
+    let videoForm4 = new THREE.BoxGeometry(15, 10, 0);
+    videoScreen4 = new THREE.Mesh(videoForm4, videoMaterial4);
+    videoScreen4.position.set(-26, 3, -35);
+    videoScreen4.lookAt(-30, 2, 2); 
+    scene1.add(videoScreen4);
+
+    // Unternehr's video
+    const thumbnail5 = new THREE.TextureLoader().load('https://i3.ytimg.com/vi/xyJQmQPmjI0/sddefault.jpg');
+    let videoMaterial5 = new THREE.MeshBasicMaterial({
+        map: thumbnail5, 
+        side: THREE.FrontSide
+    });
+
+    let videoForm5 = new THREE.BoxGeometry(40, 25, 0);
+    videoScreen5 = new THREE.Mesh(videoForm5, videoMaterial5);
+    videoScreen5.position.set(40, 8, 6);
+    videoScreen5.lookAt(-5, 6, 0); 
+
+    // Sociologist's video
+    const thumbnail6 = new THREE.TextureLoader().load('https://i3.ytimg.com/vi/xyJQmQPmjI0/sddefault.jpg');
+    let videoMaterial6 = new THREE.MeshBasicMaterial({
+        map: thumbnail6, 
+        side: THREE.FrontSide
+    });
+
+    let videoForm6 = new THREE.BoxGeometry(40, 25, 0);
+    let videoScreen6 = new THREE.Mesh(videoForm6, videoMaterial6);
+    videoScreen6.position.set(10, 0, 40);
+    videoScreen6.lookAt(0, 0, -25); 
+
+
+
+    /*
+    *********************************************
+    interact with objects and launch video
+    *********************************************
+    */
     const raycaster = new THREE.Raycaster();
     const mouse = new THREE.Vector2();
 
@@ -119,7 +203,17 @@ function init() {
 
         raycaster.setFromCamera(mouse, camera);
         
-        const intersects = raycaster.intersectObjects([arrowStage, arrowRoom, arrowEntrance, videoScreen]);
+        // Créer un tableau dynamique avec seulement les objets visibles
+        const clickableObjects = [arrowStage, arrowRoom, arrowEntrance];
+        
+        if (videoScreen.visible) clickableObjects.push(videoScreen);
+        if (videoScreen2.visible) clickableObjects.push(videoScreen2);
+        if (videoScreen3.visible) clickableObjects.push(videoScreen3);
+        if (videoScreen4.visible) clickableObjects.push(videoScreen4);
+        if (videoScreen5.visible) clickableObjects.push(videoScreen5);
+        if (videoScreen6.visible) clickableObjects.push(videoScreen6);
+        
+        const intersects = raycaster.intersectObjects(clickableObjects);
 
         if (intersects.length > 0) {
             const clickedObject = intersects[0].object;
@@ -135,10 +229,27 @@ function init() {
                 goToRoom('entrance');
             } 
 
-            if (clickedObject === videoScreen && videoScreen.visible){
-                const overlay = document.getElementById('videoOverlay');
-                const player = document.querySelector('#videoOverlay iframe');
+            let overlay = document.getElementById('videoOverlay');
+            let player = document.querySelector('#videoOverlay iframe');
+
+            if (clickedObject === videoScreen) {
                 player.src = "https://www.youtube.com/embed/Zmpag7molU0?autoplay=1";
+                overlay.style.display = 'block';
+            }
+            else if (clickedObject === videoScreen2) {
+                player.src = "https://www.youtube.com/embed/xyJQmQPmjI0?autoplay=1";
+                overlay.style.display = 'block';
+            } else if (clickedObject === videoScreen3) {
+                player.src = "https://www.youtube.com/embed/xyJQmQPmjI0?autoplay=1";
+                overlay.style.display = 'block';
+            } else if (clickedObject === videoScreen4) {
+                player.src = "https://www.youtube.com/embed/xyJQmQPmjI0?autoplay=1";
+                overlay.style.display = 'block';
+            } else if (clickedObject === videoScreen5) {
+                player.src = "https://www.youtube.com/embed/xyJQmQPmjI0?autoplay=1";
+                overlay.style.display = 'block';
+            }  else if (clickedObject === videoScreen6) {
+                player.src = "https://www.youtube.com/embed/xyJQmQPmjI0?autoplay=1";
                 overlay.style.display = 'block';
             }
         }
@@ -158,6 +269,11 @@ function init() {
         if (roomName === 'salle') {
             material.map = textureSalle;
             videoScreen.visible = true;
+            videoScreen2.visible = true;
+            videoScreen3.visible = true;
+            videoScreen4.visible = true;
+            videoScreen5.visible = false;
+            videoScreen6.visible = false;
             arrowStage.visible = true;
             arrowEntrance.visible = true;
             arrowRoom.visible = false;
@@ -165,95 +281,59 @@ function init() {
             arrowStage.position.set(40, -10, 5);
             arrowEntrance.position.set(-40, -10, -5);
             scene1.add( videoScreen );
+            scene1.add( videoScreen2 );
+            scene1.add( videoScreen3 );
+            scene1.add( videoScreen4 );
+            scene1.remove(videoScreen5);
+            scene1.remove(videoScreen6);
             camera.position.set(1, 0, 0);
         } 
         else if (roomName === 'stage') {
             material.map = textureStage;
             videoScreen.visible = false;
+            videoScreen2.visible = false;
+            videoScreen3.visible = false;
+            videoScreen4.visible = false;
+            videoScreen5.visible = true;
+            videoScreen6.visible = false;
             arrowStage.visible = false;
             arrowEntrance.visible = false;
             arrowRoom.visible = true;
             arrowRoom.position.set(-40, -10, 0);
             arrowRoom.lookAt(0, 0, 0); 
             scene1.remove(videoScreen);
+            scene1.remove(videoScreen2);
+            scene1.remove(videoScreen3);
+            scene1.remove(videoScreen4);
+            scene1.add( videoScreen5 );
+            scene1.remove(videoScreen6);
             camera.position.set(-1, 0, 0);
         } 
         else if (roomName === 'entrance') {
             material.map = textureEntrance;
             videoScreen.visible = false;
+            videoScreen2.visible = false;
+            videoScreen3.visible = false;
+            videoScreen4.visible = false;
+            videoScreen5.visible = false;
+            videoScreen6.visible = true;
             arrowStage.visible = false;
             arrowEntrance.visible = false;
             arrowRoom.visible = true;
             arrowRoom.position.set(48, -8, 4);
             arrowRoom.lookAt(0, 0, 0); 
             scene1.remove(videoScreen);
+            scene1.remove(videoScreen2);
+            scene1.remove(videoScreen3);
+            scene1.remove(videoScreen4);
+            scene1.remove(videoScreen5);
+            scene1.add(videoScreen6);
             camera.position.set(-2, 0, 0.1);
         }
         
         material.needsUpdate = true;
         controls.update();
     } 
-
-
-    /*
-    *********************************************
-    Implement the video
-    *********************************************
-    */
-    const thumbnail = new THREE.TextureLoader().load('https://img.youtube.com/vi/Zmpag7molU0/hqdefault.jpg');
-    let videoMaterial = new THREE.MeshBasicMaterial({
-        map: thumbnail, 
-        side: THREE.FrontSide
-    });
-
-    let videoForm = new THREE.BoxGeometry(15, 10, 1);
-    let videoScreen = new THREE.Mesh(videoForm, videoMaterial);
-    videoScreen.position.set(-10, 3, 20);
-    videoScreen.lookAt(-6, 5, 0); 
-    scene1.add(videoScreen);
-
-
-
-    /////////////////////////////////////////////////
-    //       Scene 2                               //
-    /////////////////////////////////////////////////
-    camera2 = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 10000);
-    camera2.position.z = 500;
-
-    scene2 = new THREE.Scene();
-
-    /*
-    *********************************************
-    When you click on the video in scene1, it leads you to the scene2
-    *********************************************
-    */
-    const raycaster1 = new THREE.Raycaster();
-    const mouse1 = new THREE.Vector2();
-
-
-   /* window.addEventListener('click', (e)=>{
-        mouse1.x = (e.clientX / window.innerWidth) * 2 - 1;
-        mouse1.y = -(e.clientY / window.innerHeight) * 2 + 1;
-
-        raycaster1.setFromCamera(mouse1, camera2);
-        
-        const intersects = raycaster.intersectObjects([videoScreen]);
-        console.log(intersects);
-
-        if (intersects.length > 0) {
-            scene = scene2
-            console.log(scene);
-        }
-    
-    }) */
-
-
-    geometry2 = new THREE.BoxGeometry(100, 10, 10);
-    material2 = new THREE.MeshNormalMaterial();
-
-    mesh2 = new THREE.Mesh(geometry2, material2);
-    mesh2.position.set(0, 0, 150);
-    scene2.add(mesh2);
 
     // Choosing default scene as scene1
     scene = scene1;
@@ -262,13 +342,5 @@ function init() {
 function animate() {
     requestAnimationFrame(animate);
     controls.update();
-    render();
-}
-
-function render() {
-    if (scene == scene1){
-        renderer.render(scene, camera);
-    } else{
-        renderer.render(scene, camera2);
-    }   
+    renderer.render(scene, camera); 
 }
