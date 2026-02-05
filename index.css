@@ -2,16 +2,19 @@ body {
     margin: 0; 
     overflow: hidden;
     position: relative;
+    width: 100vw;
+    height: 100vh;
 }
 
 #scene1{
     position: absolute;
-    top: 50px;
-    left: 20px;
-}
-
-#scene2{
-    position: absolute;
-    top: 50px;
-    left: 100px;
+    top: 20px;
+    padding: 5px 15px;
+    right: 30px;
+    font-size: 40px;
+    font-weight: bold;
+    background: none;
+    border: none;
+    color: black;
+    z-index: 1000;
 }

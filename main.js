@@ -18,12 +18,6 @@ let arrowRoom;
 let arrowStage;
 let arrowEntrance;
 
-let videoScreen;
-let videoScreen2;
-let videoScreen3;
-let videoScreen4;
-let videoScreen5;
-
 init();
 animate();
 
@@ -122,7 +116,7 @@ function init() {
     });
 
     let videoForm = new THREE.BoxGeometry(15, 10, 0);
-    videoScreen = new THREE.Mesh(videoForm, videoMaterial);
+    let videoScreen = new THREE.Mesh(videoForm, videoMaterial);
     videoScreen.position.set(-5, 3, 42);
     videoScreen.lookAt(-1, 5, 0); 
     scene1.add(videoScreen);
@@ -134,7 +128,7 @@ function init() {
     });
 
     let videoForm2 = new THREE.BoxGeometry(15, 10, 0);
-    videoScreen2 = new THREE.Mesh(videoForm2, videoMaterial2);
+    let videoScreen2 = new THREE.Mesh(videoForm2, videoMaterial2);
     videoScreen2.position.set(-25, 3, 38);
     videoScreen2.lookAt(-18, 3, 0); 
     scene1.add(videoScreen2);
@@ -146,7 +140,7 @@ function init() {
     });
 
     let videoForm3 = new THREE.BoxGeometry(15, 10, 0);
-    videoScreen3 = new THREE.Mesh(videoForm3, videoMaterial3);
+    let videoScreen3 = new THREE.Mesh(videoForm3, videoMaterial3);
     videoScreen3.position.set(-5, 3, -30);
     videoScreen3.lookAt(-8, 2, 2); 
     scene1.add(videoScreen3);
@@ -158,7 +152,7 @@ function init() {
     });
 
     let videoForm4 = new THREE.BoxGeometry(15, 10, 0);
-    videoScreen4 = new THREE.Mesh(videoForm4, videoMaterial4);
+    let videoScreen4 = new THREE.Mesh(videoForm4, videoMaterial4);
     videoScreen4.position.set(-26, 3, -35);
     videoScreen4.lookAt(-30, 2, 2); 
     scene1.add(videoScreen4);
@@ -171,7 +165,7 @@ function init() {
     });
 
     let videoForm5 = new THREE.BoxGeometry(40, 25, 0);
-    videoScreen5 = new THREE.Mesh(videoForm5, videoMaterial5);
+    let videoScreen5 = new THREE.Mesh(videoForm5, videoMaterial5);
     videoScreen5.position.set(40, 8, 6);
     videoScreen5.lookAt(-5, 6, 0); 
 
@@ -206,12 +200,12 @@ function init() {
         // Créer un tableau dynamique avec seulement les objets visibles
         const clickableObjects = [arrowStage, arrowRoom, arrowEntrance];
         
-        if (videoScreen.visible) clickableObjects.push(videoScreen);
-        if (videoScreen2.visible) clickableObjects.push(videoScreen2);
-        if (videoScreen3.visible) clickableObjects.push(videoScreen3);
-        if (videoScreen4.visible) clickableObjects.push(videoScreen4);
-        if (videoScreen5.visible) clickableObjects.push(videoScreen5);
-        if (videoScreen6.visible) clickableObjects.push(videoScreen6);
+        if (videoScreen && videoScreen.parent && videoScreen.visible) clickableObjects.push(videoScreen);
+        if (videoScreen2 && videoScreen2.parent && videoScreen2.visible) clickableObjects.push(videoScreen2);
+        if (videoScreen3 && videoScreen3.parent && videoScreen3.visible) clickableObjects.push(videoScreen3);
+        if (videoScreen4 && videoScreen4.parent && videoScreen4.visible) clickableObjects.push(videoScreen4);
+        if (videoScreen5 && videoScreen5.parent && videoScreen5.visible) clickableObjects.push(videoScreen5);
+        if (videoScreen6 && videoScreen6.parent && videoScreen6.visible) clickableObjects.push(videoScreen6);
         
         const intersects = raycaster.intersectObjects(clickableObjects);
 
@@ -235,23 +229,35 @@ function init() {
             if (clickedObject === videoScreen) {
                 player.src = "https://www.youtube.com/embed/Zmpag7molU0?autoplay=1";
                 overlay.style.display = 'block';
+                firstScene.style.display = 'block';
             }
             else if (clickedObject === videoScreen2) {
                 player.src = "https://www.youtube.com/embed/xyJQmQPmjI0?autoplay=1";
                 overlay.style.display = 'block';
-            } else if (clickedObject === videoScreen3) {
+                firstScene.style.display = 'block';
+            } 
+            else if (clickedObject === videoScreen3) {
                 player.src = "https://www.youtube.com/embed/xyJQmQPmjI0?autoplay=1";
                 overlay.style.display = 'block';
-            } else if (clickedObject === videoScreen4) {
+                firstScene.style.display = 'block';
+            } 
+            else if (clickedObject === videoScreen4) {
                 player.src = "https://www.youtube.com/embed/xyJQmQPmjI0?autoplay=1";
                 overlay.style.display = 'block';
-            } else if (clickedObject === videoScreen5) {
+                firstScene.style.display = 'block';
+            } 
+            else if (clickedObject === videoScreen5) {
                 player.src = "https://www.youtube.com/embed/xyJQmQPmjI0?autoplay=1";
                 overlay.style.display = 'block';
-            }  else if (clickedObject === videoScreen6) {
+                firstScene.style.display = 'block';
+            }  
+            else if (clickedObject === videoScreen6) {
                 player.src = "https://www.youtube.com/embed/xyJQmQPmjI0?autoplay=1";
                 overlay.style.display = 'block';
+                firstScene.style.display = 'block';
             }
+        } else{
+            firstScene.style.display = 'none';
         }
     });
 
