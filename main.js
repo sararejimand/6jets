@@ -123,7 +123,7 @@ function init() {
 
     let videoForm = new THREE.BoxGeometry(15, 10, 0);
     videoScreen = new THREE.Mesh(videoForm, videoMaterial);
-    videoScreen.position.set(-5, 3, 42);
+    videoScreen.position.set(-10, 3, 36);
     videoScreen.lookAt(-1, 5, 0); 
     scene1.add(videoScreen);
 
@@ -135,7 +135,7 @@ function init() {
 
     let videoForm2 = new THREE.BoxGeometry(15, 10, 0);
     videoScreen2 = new THREE.Mesh(videoForm2, videoMaterial2);
-    videoScreen2.position.set(-25, 3, 38);
+    videoScreen2.position.set(-30, 3, 30);
     videoScreen2.lookAt(-18, 3, 0); 
     scene1.add(videoScreen2);
 
@@ -169,14 +169,15 @@ function init() {
         map: thumbnail5, 
         side: THREE.FrontSide
     });
+    
 
     let videoForm5 = new THREE.BoxGeometry(40, 25, 0);
-    videoScreen5 = new THREE.Mesh(videoForm5, videoMaterial5);
+    let videoScreen5 = new THREE.Mesh(videoForm5, videoMaterial5);
     videoScreen5.position.set(40, 8, 6);
     videoScreen5.lookAt(-5, 6, 0); 
 
     // Sociologist's video
-    const thumbnail6 = new THREE.TextureLoader().load('https://i3.ytimg.com/vi/xyJQmQPmjI0/sddefault.jpg');
+    const thumbnail6 = new THREE.TextureLoader().load('https://i3.ytimg.com/vi/g3a5yjGwk9E/sddefault.jpg');
     let videoMaterial6 = new THREE.MeshBasicMaterial({
         map: thumbnail6, 
         side: THREE.FrontSide
@@ -197,37 +198,41 @@ function init() {
     const raycaster = new THREE.Raycaster();
     const mouse = new THREE.Vector2();
 
-    window.addEventListener('click', (event) => {
+    let startX, startY;
+
+    window.addEventListener('mousedown', (event) => {
+        startX = event.clientX;
+        startY = event.clientY;
+    });
+
+    window.addEventListener('mouseup', (event) => {
+        const diffX = Math.abs(event.clientX - startX);
+        const diffY = Math.abs(event.clientY - startY);
+
+        if (diffX > 5 || diffY > 5) return;
+
         mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
         mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
         raycaster.setFromCamera(mouse, camera);
         
-        // Créer un tableau dynamique avec seulement les objets visibles
         const clickableObjects = [arrowStage, arrowRoom, arrowEntrance];
         
-        if (videoScreen.visible) clickableObjects.push(videoScreen);
-        if (videoScreen2.visible) clickableObjects.push(videoScreen2);
-        if (videoScreen3.visible) clickableObjects.push(videoScreen3);
-        if (videoScreen4.visible) clickableObjects.push(videoScreen4);
-        if (videoScreen5.visible) clickableObjects.push(videoScreen5);
-        if (videoScreen6.visible) clickableObjects.push(videoScreen6);
+        if (videoScreen && videoScreen.parent && videoScreen.visible) clickableObjects.push(videoScreen);
+        if (videoScreen2 && videoScreen2.parent && videoScreen2.visible) clickableObjects.push(videoScreen2);
+        if (videoScreen3 && videoScreen3.parent && videoScreen3.visible) clickableObjects.push(videoScreen3);
+        if (videoScreen4 && videoScreen4.parent && videoScreen4.visible) clickableObjects.push(videoScreen4);
+        if (videoScreen5 && videoScreen5.parent && videoScreen5.visible) clickableObjects.push(videoScreen5);
+        if (videoScreen6 && videoScreen6.parent && videoScreen6.visible) clickableObjects.push(videoScreen6);
         
         const intersects = raycaster.intersectObjects(clickableObjects);
 
         if (intersects.length > 0) {
             const clickedObject = intersects[0].object;
 
-            if (clickedObject === arrowStage){
-                goToRoom('stage');
-                console.log('tu es dans la salle');
-            } 
-            if (clickedObject === arrowRoom){
-                goToRoom('salle');
-            } 
-            if (clickedObject === arrowEntrance){
-                goToRoom('entrance');
-            } 
+            if (clickedObject === arrowStage) goToRoom('stage');
+            if (clickedObject === arrowRoom) goToRoom('salle');
+            if (clickedObject === arrowEntrance) goToRoom('entrance');
 
             let overlay = document.getElementById('videoOverlay');
             let player = document.querySelector('#videoOverlay iframe');
@@ -248,8 +253,8 @@ function init() {
             } else if (clickedObject === videoScreen5) {
                 player.src = "https://www.youtube.com/embed/xyJQmQPmjI0?autoplay=1";
                 overlay.style.display = 'block';
-            }  else if (clickedObject === videoScreen6) {
-                player.src = "https://www.youtube.com/embed/xyJQmQPmjI0?autoplay=1";
+            } else if (clickedObject === videoScreen6) {
+                player.src = "https://www.youtube.com/embed/g3a5yjGwk9E?autoplay=1";
                 overlay.style.display = 'block';
             }
         }
