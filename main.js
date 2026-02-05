@@ -32,11 +32,15 @@ animate();
 const firstScene = document.getElementById('scene1');
 
 /* Buttons to handle scene switch */
-firstScene.addEventListener('click', ()=>{
-    scene = scene1
-    console.log(scene);
-})
+    firstScene.addEventListener('click', () => {
+        scene = scene1;
 
+        const overlay = document.getElementById('videoOverlay');
+        const player = document.querySelector('#videoOverlay iframe');
+        
+        overlay.style.display = 'none';
+        player.src = ""; 
+    });
 
 
 function init() {
@@ -115,7 +119,7 @@ function init() {
 
         raycaster.setFromCamera(mouse, camera);
         
-        const intersects = raycaster.intersectObjects([arrowStage, arrowRoom, arrowEntrance]);
+        const intersects = raycaster.intersectObjects([arrowStage, arrowRoom, arrowEntrance, videoScreen]);
 
         if (intersects.length > 0) {
             const clickedObject = intersects[0].object;
@@ -130,6 +134,13 @@ function init() {
             if (clickedObject === arrowEntrance){
                 goToRoom('entrance');
             } 
+
+            if (clickedObject === videoScreen && videoScreen.visible){
+                const overlay = document.getElementById('videoOverlay');
+                const player = document.querySelector('#videoOverlay iframe');
+                player.src = "https://www.youtube.com/embed/Zmpag7molU0?autoplay=1";
+                overlay.style.display = 'block';
+            }
         }
     });
 
@@ -146,31 +157,37 @@ function init() {
     function goToRoom(roomName) {
         if (roomName === 'salle') {
             material.map = textureSalle;
+            videoScreen.visible = true;
             arrowStage.visible = true;
             arrowEntrance.visible = true;
             arrowRoom.visible = false;
-            controls.target.set(1, 0, 0);
+            controls.target.set(0, 0, 0);
             arrowStage.position.set(40, -10, 5);
             arrowEntrance.position.set(-40, -10, -5);
             scene1.add( videoScreen );
+            camera.position.set(1, 0, 0);
         } 
         else if (roomName === 'stage') {
             material.map = textureStage;
+            videoScreen.visible = false;
             arrowStage.visible = false;
             arrowEntrance.visible = false;
             arrowRoom.visible = true;
             arrowRoom.position.set(-40, -10, 0);
             arrowRoom.lookAt(0, 0, 0); 
             scene1.remove(videoScreen);
+            camera.position.set(-1, 0, 0);
         } 
         else if (roomName === 'entrance') {
             material.map = textureEntrance;
+            videoScreen.visible = false;
             arrowStage.visible = false;
             arrowEntrance.visible = false;
             arrowRoom.visible = true;
             arrowRoom.position.set(48, -8, 4);
             arrowRoom.lookAt(0, 0, 0); 
             scene1.remove(videoScreen);
+            camera.position.set(-2, 0, 0.1);
         }
         
         material.needsUpdate = true;
@@ -183,23 +200,17 @@ function init() {
     Implement the video
     *********************************************
     */
-    const video = document.getElementById( 'video' );
-    const videotexture = new THREE.VideoTexture( video );
-
-    texture.minFilter = THREE.LinearFilter;
-    texture.magFilter = THREE.LinearFilter;
-
+    const thumbnail = new THREE.TextureLoader().load('https://img.youtube.com/vi/Zmpag7molU0/hqdefault.jpg');
     let videoMaterial = new THREE.MeshBasicMaterial({
-        map: videotexture,
-        side: THREE.FrontSide,
-        toneMapped: false,
+        map: thumbnail, 
+        side: THREE.FrontSide
     });
 
     let videoForm = new THREE.BoxGeometry(15, 10, 1);
     let videoScreen = new THREE.Mesh(videoForm, videoMaterial);
-    videoScreen.position.set(-10, 3, 20)
+    videoScreen.position.set(-10, 3, 20);
     videoScreen.lookAt(-6, 5, 0); 
-    scene1.add( videoScreen );
+    scene1.add(videoScreen);
 
 
 
@@ -220,7 +231,7 @@ function init() {
     const mouse1 = new THREE.Vector2();
 
 
-    window.addEventListener('click', (e)=>{
+   /* window.addEventListener('click', (e)=>{
         mouse1.x = (e.clientX / window.innerWidth) * 2 - 1;
         mouse1.y = -(e.clientY / window.innerHeight) * 2 + 1;
 
@@ -234,7 +245,7 @@ function init() {
             console.log(scene);
         }
     
-    })
+    }) */
 
 
     geometry2 = new THREE.BoxGeometry(100, 10, 10);
@@ -242,7 +253,7 @@ function init() {
 
     mesh2 = new THREE.Mesh(geometry2, material2);
     mesh2.position.set(0, 0, 150);
-    scene2.add(mesh2); // so note need to be able to switch this on 
+    scene2.add(mesh2);
 
     // Choosing default scene as scene1
     scene = scene1;
