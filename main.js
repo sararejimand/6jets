@@ -235,7 +235,7 @@ function init() {
 
             if (clickedObject === arrowStage) {
                 goToRoom('stage');  
-                audioLoader.load( 'Whoosh.mp3', function( buffer ) {
+                audioLoader.load( 'whoosh.mp3', function( buffer ) {
                 sound.setBuffer( buffer );
                 sound.setLoop( false );
                 sound.setVolume( 0.5 );
@@ -245,7 +245,7 @@ function init() {
 
             if (clickedObject === arrowRoom) {
                 goToRoom('salle');
-                audioLoader.load( 'Whoosh.mp3', function( buffer ) {
+                audioLoader.load( 'whoosh.mp3', function( buffer ) {
                 sound.setBuffer( buffer );
                 sound.setLoop( false );
                 sound.setVolume( 0.5 );
@@ -255,7 +255,7 @@ function init() {
 
             if (clickedObject === arrowEntrance) {
                 goToRoom('entrance');
-                audioLoader.load( 'Whoosh.mp3', function( buffer ) {
+                audioLoader.load( 'whoosh.mp3', function( buffer ) {
                 sound.setBuffer( buffer );
                 sound.setLoop( false );
                 sound.setVolume( 0.5 );
@@ -341,9 +341,9 @@ function init() {
     */
     const textureSalle = new THREE.TextureLoader().load('salle.jpg')
     textureSalle.colorSpace = THREE.SRGBColorSpace;
-    const textureStage = new THREE.TextureLoader().load('stage.jpg')
+    const textureStage = new THREE.TextureLoader().load('stage.JPG')
     textureStage.colorSpace = THREE.SRGBColorSpace;
-    const textureEntrance = new THREE.TextureLoader().load('entrance.jpg')
+    const textureEntrance = new THREE.TextureLoader().load('entrance.JPG')
     textureEntrance.colorSpace = THREE.SRGBColorSpace;
 
     arrowRoom.visible = false;
