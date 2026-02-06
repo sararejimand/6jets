@@ -59,7 +59,7 @@ function init() {
     */
     scene1 = new THREE.Scene();
     geometry = new THREE.SphereGeometry(50, 32, 32);
-    texture = new THREE.TextureLoader().load('images/salle.jpg');
+    texture = new THREE.TextureLoader().load('public/salle.jpg');
     texture.colorSpace = THREE.SRGBColorSpace;
     material = new THREE.MeshBasicMaterial({
             map: texture,
@@ -235,7 +235,7 @@ function init() {
 
             if (clickedObject === arrowStage) {
                 goToRoom('stage');  
-                audioLoader.load( 'Whoosh.mp3', function( buffer ) {
+                audioLoader.load( 'public/Whoosh.mp3', function( buffer ) {
                 sound.setBuffer( buffer );
                 sound.setLoop( false );
                 sound.setVolume( 0.5 );
@@ -245,7 +245,7 @@ function init() {
 
             if (clickedObject === arrowRoom) {
                 goToRoom('salle');
-                audioLoader.load( 'Whoosh.mp3', function( buffer ) {
+                audioLoader.load( 'public/Whoosh.mp3', function( buffer ) {
                 sound.setBuffer( buffer );
                 sound.setLoop( false );
                 sound.setVolume( 0.5 );
@@ -255,7 +255,7 @@ function init() {
 
             if (clickedObject === arrowEntrance) {
                 goToRoom('entrance');
-                audioLoader.load( 'Whoosh.mp3', function( buffer ) {
+                audioLoader.load( 'public/Whoosh.mp3', function( buffer ) {
                 sound.setBuffer( buffer );
                 sound.setLoop( false );
                 sound.setVolume( 0.5 );
@@ -270,7 +270,7 @@ function init() {
                 player.src = "https://www.youtube.com/embed/D-bA3cG8k2c?autoplay=1";
                 overlay.style.display = 'block';
                 firstScene.style.display = 'block';
-                audioLoader.load( 'click.mp3', function( buffer ) {
+                audioLoader.load( 'public/click.mp3', function( buffer ) {
                 sound.setBuffer( buffer );
                 sound.setLoop( false );
                 sound.setVolume( 0.5 );
@@ -281,7 +281,7 @@ function init() {
                 player.src = "https://www.youtube.com/embed/0f1wrOGvUh4?autoplay=1";
                 overlay.style.display = 'block';
                 firstScene.style.display = 'block';
-                audioLoader.load( 'click.mp3', function( buffer ) {
+                audioLoader.load( 'public/click.mp3', function( buffer ) {
                 sound.setBuffer( buffer );
                 sound.setLoop( false );
                 sound.setVolume( 0.5 );
@@ -292,7 +292,7 @@ function init() {
                 player.src = "https://www.youtube.com/embed/YnqISPa5EMo?autoplay=1";
                 overlay.style.display = 'block';
                 firstScene.style.display = 'block';
-                audioLoader.load( 'click.mp3', function( buffer ) {
+                audioLoader.load( 'public/click.mp3', function( buffer ) {
                 sound.setBuffer( buffer );
                 sound.setLoop( false );
                 sound.setVolume( 0.5 );
@@ -303,7 +303,7 @@ function init() {
                 player.src = "https://www.youtube.com/embed/e-_xdZLPIn0?autoplay=1";
                 overlay.style.display = 'block';
                 firstScene.style.display = 'block';
-                audioLoader.load( 'click.mp3', function( buffer ) {
+                audioLoader.load( 'public/click.mp3', function( buffer ) {
                 sound.setBuffer( buffer );
                 sound.setLoop( false );
                 sound.setVolume( 0.5 );
@@ -314,7 +314,7 @@ function init() {
                 player.src = "https://www.youtube.com/embed/yJJ0tt6R2HI?autoplay=1";
                 overlay.style.display = 'block';
                 firstScene.style.display = 'block';
-                audioLoader.load( 'click.mp3', function( buffer ) {
+                audioLoader.load( 'public/click.mp3', function( buffer ) {
                 sound.setBuffer( buffer );
                 sound.setLoop( false );
                 sound.setVolume( 0.5 );
@@ -324,7 +324,7 @@ function init() {
                 player.src = "https://www.youtube.com/embed/qITzUqxoDOE?autoplay=1";
                 overlay.style.display = 'block';
                 firstScene.style.display = 'block';
-                audioLoader.load( 'click.mp3', function( buffer ) {
+                audioLoader.load( 'public/click.mp3', function( buffer ) {
                 sound.setBuffer( buffer );
                 sound.setLoop( false );
                 sound.setVolume( 0.5 );
@@ -339,11 +339,11 @@ function init() {
     Create the other scene when we click on the arrows
     *********************************************
     */
-    const textureSalle = new THREE.TextureLoader().load('/salle.jpg')
+    const textureSalle = new THREE.TextureLoader().load('public/salle.jpg')
     textureSalle.colorSpace = THREE.SRGBColorSpace;
-    const textureStage = new THREE.TextureLoader().load('/stage.jpg')
+    const textureStage = new THREE.TextureLoader().load('public/stage.jpg')
     textureStage.colorSpace = THREE.SRGBColorSpace;
-    const textureEntrance = new THREE.TextureLoader().load('/entrance.jpg')
+    const textureEntrance = new THREE.TextureLoader().load('public/entrance.jpg')
     textureEntrance.colorSpace = THREE.SRGBColorSpace;
 
     arrowRoom.visible = false;
