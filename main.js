@@ -270,7 +270,7 @@ function init() {
                 player.src = "https://www.youtube.com/embed/D-bA3cG8k2c?autoplay=1";
                 overlay.style.display = 'block';
                 firstScene.style.display = 'block';
-                audioLoader.load( 'public/click.mp3', function( buffer ) {
+                audioLoader.load( '/click.mp3', function( buffer ) {
                 sound.setBuffer( buffer );
                 sound.setLoop( false );
                 sound.setVolume( 0.5 );
@@ -281,7 +281,7 @@ function init() {
                 player.src = "https://www.youtube.com/embed/0f1wrOGvUh4?autoplay=1";
                 overlay.style.display = 'block';
                 firstScene.style.display = 'block';
-                audioLoader.load( 'public/click.mp3', function( buffer ) {
+                audioLoader.load( '/click.mp3', function( buffer ) {
                 sound.setBuffer( buffer );
                 sound.setLoop( false );
                 sound.setVolume( 0.5 );
@@ -292,7 +292,7 @@ function init() {
                 player.src = "https://www.youtube.com/embed/YnqISPa5EMo?autoplay=1";
                 overlay.style.display = 'block';
                 firstScene.style.display = 'block';
-                audioLoader.load( 'public/click.mp3', function( buffer ) {
+                audioLoader.load( '/click.mp3', function( buffer ) {
                 sound.setBuffer( buffer );
                 sound.setLoop( false );
                 sound.setVolume( 0.5 );
@@ -303,7 +303,7 @@ function init() {
                 player.src = "https://www.youtube.com/embed/e-_xdZLPIn0?autoplay=1";
                 overlay.style.display = 'block';
                 firstScene.style.display = 'block';
-                audioLoader.load( 'public/click.mp3', function( buffer ) {
+                audioLoader.load( '/click.mp3', function( buffer ) {
                 sound.setBuffer( buffer );
                 sound.setLoop( false );
                 sound.setVolume( 0.5 );
@@ -314,7 +314,7 @@ function init() {
                 player.src = "https://www.youtube.com/embed/yJJ0tt6R2HI?autoplay=1";
                 overlay.style.display = 'block';
                 firstScene.style.display = 'block';
-                audioLoader.load( 'public/click.mp3', function( buffer ) {
+                audioLoader.load( '/click.mp3', function( buffer ) {
                 sound.setBuffer( buffer );
                 sound.setLoop( false );
                 sound.setVolume( 0.5 );
@@ -324,7 +324,7 @@ function init() {
                 player.src = "https://www.youtube.com/embed/qITzUqxoDOE?autoplay=1";
                 overlay.style.display = 'block';
                 firstScene.style.display = 'block';
-                audioLoader.load( 'public/click.mp3', function( buffer ) {
+                audioLoader.load( '/click.mp3', function( buffer ) {
                 sound.setBuffer( buffer );
                 sound.setLoop( false );
                 sound.setVolume( 0.5 );
