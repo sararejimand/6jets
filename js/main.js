@@ -23,7 +23,11 @@ animate();
 
 const firstScene = document.getElementById('scene1');
 
-/* Buttons to handle scene switch */
+/*
+*********************************************
+Button to go back to the first scene after watching videos
+*********************************************
+*/
 firstScene.addEventListener('click', () => {
     scene = scene1;
 
@@ -42,7 +46,8 @@ function init() {
     renderer = new THREE.WebGLRenderer();
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio( window.devicePixelRatio );
-
+    renderer.outputEncoding = THREE.sRGBEncoding;
+    
     document.body.appendChild(renderer.domElement);
 
 
@@ -53,7 +58,8 @@ function init() {
     */
     scene1 = new THREE.Scene();
     geometry = new THREE.SphereGeometry(50, 32, 32);
-    texture = new THREE.TextureLoader().load('salle.jpg');
+    texture = new THREE.TextureLoader().load('images/salle.jpg');
+    texture.colorSpace = THREE.SRGBColorSpace;
     material = new THREE.MeshBasicMaterial({
             map: texture,
             side: THREE.DoubleSide
@@ -114,7 +120,6 @@ function init() {
         map: thumbnail, 
         side: THREE.FrontSide
     });
-
     let videoForm = new THREE.BoxGeometry(15, 10, 0);
     let videoScreen = new THREE.Mesh(videoForm, videoMaterial);
     videoScreen.position.set(-10, 3, 36);
@@ -126,7 +131,6 @@ function init() {
         map: thumbnail2, 
         side: THREE.FrontSide
     });
-
     let videoForm2 = new THREE.BoxGeometry(15, 10, 0);
     let videoScreen2 = new THREE.Mesh(videoForm2, videoMaterial2);
     videoScreen2.position.set(-30, 3, 30);
@@ -138,7 +142,6 @@ function init() {
         map: thumbnail3, 
         side: THREE.FrontSide
     });
-
     let videoForm3 = new THREE.BoxGeometry(15, 10, 0);
     let videoScreen3 = new THREE.Mesh(videoForm3, videoMaterial3);
     videoScreen3.position.set(-5, 3, -30);
@@ -150,7 +153,6 @@ function init() {
         map: thumbnail4, 
         side: THREE.FrontSide
     });
-
     let videoForm4 = new THREE.BoxGeometry(15, 10, 0);
     let videoScreen4 = new THREE.Mesh(videoForm4, videoMaterial4);
     videoScreen4.position.set(-26, 3, -35);
@@ -163,8 +165,6 @@ function init() {
         map: thumbnail5, 
         side: THREE.FrontSide
     });
-    
-
     let videoForm5 = new THREE.BoxGeometry(40, 25, 0);
     let videoScreen5 = new THREE.Mesh(videoForm5, videoMaterial5);
     videoScreen5.position.set(40, 8, 6);
@@ -176,13 +176,10 @@ function init() {
         map: thumbnail6, 
         side: THREE.FrontSide
     });
-
     let videoForm6 = new THREE.BoxGeometry(40, 25, 0);
     let videoScreen6 = new THREE.Mesh(videoForm6, videoMaterial6);
     videoScreen6.position.set(10, 0, 40);
     videoScreen6.lookAt(0, 0, -25); 
-
-
 
     /*
     *********************************************
@@ -192,7 +189,8 @@ function init() {
     const raycaster = new THREE.Raycaster();
     const mouse = new THREE.Vector2();
 
-    let startX, startY;
+    let startX;
+    let startY;
 
     window.addEventListener('mousedown', (event) => {
         startX = event.clientX;
@@ -220,6 +218,7 @@ function init() {
         if (videoScreen6 && videoScreen6.parent && videoScreen6.visible) clickableObjects.push(videoScreen6);
         
         const intersects = raycaster.intersectObjects(clickableObjects);
+        
 
         if (intersects.length > 0) {
             const clickedObject = intersects[0].object;
@@ -264,11 +263,17 @@ function init() {
         }
     });
 
-
-    const textureSalle = new THREE.TextureLoader().load('salle.jpg')
-    const textureStage = new THREE.TextureLoader().load('stage.jpg')
-    const textureEntrance = new THREE.TextureLoader().load('entrance.jpg')
-
+    /*
+    *********************************************
+    Create the other scene when we click on the arrows
+    *********************************************
+    */
+    const textureSalle = new THREE.TextureLoader().load('images/salle.jpg')
+    textureSalle.colorSpace = THREE.SRGBColorSpace;
+    const textureStage = new THREE.TextureLoader().load('images/stage.jpg')
+    textureStage.colorSpace = THREE.SRGBColorSpace;
+    const textureEntrance = new THREE.TextureLoader().load('images/entrance.jpg')
+    textureEntrance.colorSpace = THREE.SRGBColorSpace;
 
     arrowRoom.visible = false;
     arrowStage.visible = true;
@@ -348,8 +353,14 @@ function init() {
     scene = scene1;
 }
 
+
 function animate() {
     requestAnimationFrame(animate);
     controls.update();
+
+    const scale = 1 + Math.sin(Date.now() * 0.005) * 0.1;
+    arrowStage.scale.set(scale, scale, scale);
+    arrowRoom.scale.set(scale, scale, scale);
+    arrowEntrance.scale.set(scale, scale, scale);
     renderer.render(scene, camera); 
 }

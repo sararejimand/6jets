@@ -8,7 +8,8 @@
 </head>
 
 <body>
-    <script type="module" src="/main.js"></script>
+    <script type="module" src="/js/main.js" defer></script>
+    <script type="module" src="/js/popUp.js" defer></script>
 
     <div id="videoOverlay" style="display:none; position:fixed; top: 47%; left: 50%; transform: translate(-50%, -50%); z-index:100; height: 100vh;">
         <br>
@@ -17,7 +18,43 @@
 
     
     <button id="scene1" style="display: none;  background-color: #ffff;">X</button>
-    
-    <script type="module" src="/main.js"></script>
+
+    <div id="legalOverlay">
+        <div>
+            <h2 style="text-align: center;">Mentions Légales  |   Terms</h2>
+            <div class="credits">
+                <p >Nous remercions :  <br>  We thank :</p>
+                <div>
+                    <p>Pauline BAUCÉ</p>
+                    <p>Dominique UNTERNEHR</p>
+                    <p>Noah DARDILLAC</p>
+                    <p>Lydilee MONTELS</p>
+                    <p>Guillaume PARIS</p>
+                    <p>Lucie FERREIRA</p>
+                    <p>Elsa TROCMÉ</p>
+                    <p>Charles-Alexandre DELESTAGE</p>
+                    <p>Thomas BRUNEL</p>
+                    <p>Gwendal JUDIC</p>
+                    <p>Delphine REYSS</p>
+                </div>
+
+
+                <p >Créateurs :  <br>  Creators :</p>
+                <div>
+                    <p>Anis ABDALLAH</p>
+                    <p>Matthias OUDART</p>
+                    <p>Elia ROSSI</p>
+                    <p>Sara REJIMAND</p>
+                    <p>Pamela RAKOTOARIJAONA</p>
+                </div>
+                
+            </div>
+        </div>
+        <button id="closeLegal" style="position: absolute; top: 50px; right: 180px;">X</button>
+    </div>
+
+    <a id="legalBtn">Mentions Légales | Terms</a>
 </body>
 </html>
+
+
