@@ -55,7 +55,7 @@ a:hover,
     position:absolute; 
     top:50%; left:50%; 
     transform:translate(-50%, -50%); 
-    background: url('/images/scene.png');
+    background: url('/scene.png');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;

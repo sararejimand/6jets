@@ -339,11 +339,11 @@ function init() {
     Create the other scene when we click on the arrows
     *********************************************
     */
-    const textureSalle = new THREE.TextureLoader().load('images/salle.jpg')
+    const textureSalle = new THREE.TextureLoader().load('/salle.jpg')
     textureSalle.colorSpace = THREE.SRGBColorSpace;
-    const textureStage = new THREE.TextureLoader().load('images/stage.jpg')
+    const textureStage = new THREE.TextureLoader().load('/stage.jpg')
     textureStage.colorSpace = THREE.SRGBColorSpace;
-    const textureEntrance = new THREE.TextureLoader().load('images/entrance.jpg')
+    const textureEntrance = new THREE.TextureLoader().load('/entrance.jpg')
     textureEntrance.colorSpace = THREE.SRGBColorSpace;
 
     arrowRoom.visible = false;
