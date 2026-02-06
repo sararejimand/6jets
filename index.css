@@ -24,14 +24,13 @@ body {
 }
 
 #closeLegal{
-    color: #F5F5F5;
+    color: #FFF1D0;
 }
 
 a{
     position: absolute;
     bottom: 20px;
-    left: 650px;
-    color: #F5F5F5;
+    color: #FFF1D0;
     text-decoration: underline;
     cursor: pointer;
 }
@@ -63,7 +62,7 @@ a:hover,
     padding:30px; 
     width:900px; 
     height: 550px;
-    color:white; 
+    color:#FFF1D0; 
     font-family:sans-serif;
 }
 

@@ -30,6 +30,7 @@ Button to go back to the first scene after watching videos
 */
 firstScene.addEventListener('click', () => {
     scene = scene1;
+    firstScene.style.display = 'none';
 
     const overlay = document.getElementById('videoOverlay');
     const player = document.querySelector('#videoOverlay iframe');
@@ -88,7 +89,7 @@ function init() {
     *********************************************
     */
     arrowForm = new THREE.ConeGeometry(1.5, -3, 3 )
-    arrowMaterial = new THREE.MeshBasicMaterial({ color: 0xf5f5f5 });
+    arrowMaterial = new THREE.MeshBasicMaterial({ color: 0xFFF1D0 });
     arrowRoom = new THREE.Mesh(arrowForm, arrowMaterial);
     arrowStage = new THREE.Mesh(arrowForm, arrowMaterial);
     arrowEntrance = new THREE.Mesh(arrowForm, arrowMaterial);
@@ -115,58 +116,63 @@ function init() {
     *********************************************
     */
     // students'videos
-    const thumbnail = new THREE.TextureLoader().load('https://img.youtube.com/vi/Zmpag7molU0/hqdefault.jpg');
+    const thumbnail = new THREE.TextureLoader().load('https://i3.ytimg.com/vi/D-bA3cG8k2c/sddefault.jpg');
     let videoMaterial = new THREE.MeshBasicMaterial({
         map: thumbnail, 
         side: THREE.FrontSide
     });
     let videoForm = new THREE.BoxGeometry(15, 10, 0);
     let videoScreen = new THREE.Mesh(videoForm, videoMaterial);
+    thumbnail.colorSpace = THREE.SRGBColorSpace;
     videoScreen.position.set(-10, 3, 36);
     videoScreen.lookAt(-1, 5, 0); 
     scene1.add(videoScreen);
 
-    const thumbnail2 = new THREE.TextureLoader().load('https://i3.ytimg.com/vi/xyJQmQPmjI0/sddefault.jpg');
+    const thumbnail2 = new THREE.TextureLoader().load('https://i3.ytimg.com/vi/0f1wrOGvUh4/sddefault.jpg');
     let videoMaterial2 = new THREE.MeshBasicMaterial({
         map: thumbnail2, 
         side: THREE.FrontSide
     });
     let videoForm2 = new THREE.BoxGeometry(15, 10, 0);
     let videoScreen2 = new THREE.Mesh(videoForm2, videoMaterial2);
+    thumbnail2.colorSpace = THREE.SRGBColorSpace;
     videoScreen2.position.set(-30, 3, 30);
     videoScreen2.lookAt(-18, 3, 0); 
     scene1.add(videoScreen2);
 
-    const thumbnail3 = new THREE.TextureLoader().load('https://i3.ytimg.com/vi/xyJQmQPmjI0/sddefault.jpg');
+    const thumbnail3 = new THREE.TextureLoader().load('https://i3.ytimg.com/vi/YnqISPa5EMo/sddefault.jpg');
     let videoMaterial3 = new THREE.MeshBasicMaterial({
         map: thumbnail3, 
         side: THREE.FrontSide
     });
     let videoForm3 = new THREE.BoxGeometry(15, 10, 0);
     let videoScreen3 = new THREE.Mesh(videoForm3, videoMaterial3);
+    thumbnail3.colorSpace = THREE.SRGBColorSpace;
     videoScreen3.position.set(-5, 3, -30);
     videoScreen3.lookAt(-8, 2, 2); 
     scene1.add(videoScreen3);
 
-    const thumbnail4 = new THREE.TextureLoader().load('https://i3.ytimg.com/vi/xyJQmQPmjI0/sddefault.jpg');
+    const thumbnail4 = new THREE.TextureLoader().load('https://i3.ytimg.com/vi/e-_xdZLPIn0/sddefault.jpg');
     let videoMaterial4 = new THREE.MeshBasicMaterial({
         map: thumbnail4, 
         side: THREE.FrontSide
     });
     let videoForm4 = new THREE.BoxGeometry(15, 10, 0);
     let videoScreen4 = new THREE.Mesh(videoForm4, videoMaterial4);
+    thumbnail4.colorSpace = THREE.SRGBColorSpace;
     videoScreen4.position.set(-26, 3, -35);
     videoScreen4.lookAt(-30, 2, 2); 
     scene1.add(videoScreen4);
 
     // Unternehr's video
-    const thumbnail5 = new THREE.TextureLoader().load('https://i3.ytimg.com/vi/xyJQmQPmjI0/sddefault.jpg');
+    const thumbnail5 = new THREE.TextureLoader().load('https://i3.ytimg.com/vi/yJJ0tt6R2HI/sddefault.jpg');
     let videoMaterial5 = new THREE.MeshBasicMaterial({
         map: thumbnail5, 
         side: THREE.FrontSide
     });
     let videoForm5 = new THREE.BoxGeometry(40, 25, 0);
     let videoScreen5 = new THREE.Mesh(videoForm5, videoMaterial5);
+    thumbnail5.colorSpace = THREE.SRGBColorSpace;
     videoScreen5.position.set(40, 8, 6);
     videoScreen5.lookAt(-5, 6, 0); 
 
@@ -178,6 +184,7 @@ function init() {
     });
     let videoForm6 = new THREE.BoxGeometry(40, 25, 0);
     let videoScreen6 = new THREE.Mesh(videoForm6, videoMaterial6);
+    thumbnail6.colorSpace = THREE.SRGBColorSpace;
     videoScreen6.position.set(10, 0, 40);
     videoScreen6.lookAt(0, 0, -25); 
 
@@ -218,49 +225,113 @@ function init() {
         if (videoScreen6 && videoScreen6.parent && videoScreen6.visible) clickableObjects.push(videoScreen6);
         
         const intersects = raycaster.intersectObjects(clickableObjects);
-        
+        const listener = new THREE.AudioListener();
+        camera.add( listener );
+        const sound = new THREE.Audio( listener );
+        const audioLoader = new THREE.AudioLoader();
 
         if (intersects.length > 0) {
             const clickedObject = intersects[0].object;
 
-            if (clickedObject === arrowStage) goToRoom('stage');
-            if (clickedObject === arrowRoom) goToRoom('salle');
-            if (clickedObject === arrowEntrance) goToRoom('entrance');
+            if (clickedObject === arrowStage) {
+                goToRoom('stage');  
+                audioLoader.load( 'Whoosh.mp3', function( buffer ) {
+                sound.setBuffer( buffer );
+                sound.setLoop( false );
+                sound.setVolume( 0.5 );
+                sound.play();
+                });
+            }
+
+            if (clickedObject === arrowRoom) {
+                goToRoom('salle');
+                audioLoader.load( 'Whoosh.mp3', function( buffer ) {
+                sound.setBuffer( buffer );
+                sound.setLoop( false );
+                sound.setVolume( 0.5 );
+                sound.play();
+                });
+            } 
+
+            if (clickedObject === arrowEntrance) {
+                goToRoom('entrance');
+                audioLoader.load( 'Whoosh.mp3', function( buffer ) {
+                sound.setBuffer( buffer );
+                sound.setLoop( false );
+                sound.setVolume( 0.5 );
+                sound.play();
+                });
+            } 
 
             let overlay = document.getElementById('videoOverlay');
             let player = document.querySelector('#videoOverlay iframe');
 
             if (clickedObject === videoScreen) {
-                player.src = "https://www.youtube.com/embed/Zmpag7molU0?autoplay=1";
+                player.src = "https://www.youtube.com/embed/D-bA3cG8k2c?autoplay=1";
                 overlay.style.display = 'block';
                 firstScene.style.display = 'block';
+                audioLoader.load( 'click.mp3', function( buffer ) {
+                sound.setBuffer( buffer );
+                sound.setLoop( false );
+                sound.setVolume( 0.5 );
+                sound.play();
+                });
             }
             else if (clickedObject === videoScreen2) {
-                player.src = "https://www.youtube.com/embed/xyJQmQPmjI0?autoplay=1";
+                player.src = "https://www.youtube.com/embed/0f1wrOGvUh4?autoplay=1";
                 overlay.style.display = 'block';
                 firstScene.style.display = 'block';
+                audioLoader.load( 'click.mp3', function( buffer ) {
+                sound.setBuffer( buffer );
+                sound.setLoop( false );
+                sound.setVolume( 0.5 );
+                sound.play();
+                });
             } 
             else if (clickedObject === videoScreen3) {
-                player.src = "https://www.youtube.com/embed/xyJQmQPmjI0?autoplay=1";
+                player.src = "https://www.youtube.com/embed/YnqISPa5EMo?autoplay=1";
                 overlay.style.display = 'block';
                 firstScene.style.display = 'block';
+                audioLoader.load( 'click.mp3', function( buffer ) {
+                sound.setBuffer( buffer );
+                sound.setLoop( false );
+                sound.setVolume( 0.5 );
+                sound.play();
+                });
             } 
             else if (clickedObject === videoScreen4) {
-                player.src = "https://www.youtube.com/embed/xyJQmQPmjI0?autoplay=1";
+                player.src = "https://www.youtube.com/embed/e-_xdZLPIn0?autoplay=1";
                 overlay.style.display = 'block';
                 firstScene.style.display = 'block';
+                audioLoader.load( 'click.mp3', function( buffer ) {
+                sound.setBuffer( buffer );
+                sound.setLoop( false );
+                sound.setVolume( 0.5 );
+                sound.play();
+                });
             } 
             else if (clickedObject === videoScreen5) {
-                player.src = "https://www.youtube.com/embed/xyJQmQPmjI0?autoplay=1";
-                overlay.style.display = 'block';
-            } else if (clickedObject === videoScreen6) {
-                player.src = "https://www.youtube.com/embed/g3a5yjGwk9E?autoplay=1";
+                player.src = "https://www.youtube.com/embed/yJJ0tt6R2HI?autoplay=1";
                 overlay.style.display = 'block';
                 firstScene.style.display = 'block';
+                audioLoader.load( 'click.mp3', function( buffer ) {
+                sound.setBuffer( buffer );
+                sound.setLoop( false );
+                sound.setVolume( 0.5 );
+                sound.play();
+                });
+            } else if (clickedObject === videoScreen6) {
+                player.src = "https://www.youtube.com/embed/qITzUqxoDOE?autoplay=1";
+                overlay.style.display = 'block';
+                firstScene.style.display = 'block';
+                audioLoader.load( 'click.mp3', function( buffer ) {
+                sound.setBuffer( buffer );
+                sound.setLoop( false );
+                sound.setVolume( 0.5 );
+                sound.play();
+                });
             }
-        } else{
-            firstScene.style.display = 'none';
-        }
+        } 
     });
 
     /*
