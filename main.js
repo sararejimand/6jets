@@ -177,7 +177,7 @@ function init() {
     videoScreen5.lookAt(-5, 6, 0); 
 
     // Sociologist's video
-    const thumbnail6 = new THREE.TextureLoader().load('https://i3.ytimg.com/vi/g3a5yjGwk9E/sddefault.jpg');
+    const thumbnail6 = new THREE.TextureLoader().load('https://i3.ytimg.com/vi/5iOyiIZykRQ/sddefault.jpg');
     let videoMaterial6 = new THREE.MeshBasicMaterial({
         map: thumbnail6, 
         side: THREE.FrontSide
@@ -321,7 +321,7 @@ function init() {
                 sound.play();
                 });
             } else if (clickedObject === videoScreen6) {
-                player.src = "https://www.youtube.com/embed/qITzUqxoDOE?autoplay=1";
+                player.src = "https://www.youtube.com/embed/5iOyiIZykRQ?autoplay=1";
                 overlay.style.display = 'block';
                 firstScene.style.display = 'block';
                 audioLoader.load( 'click.mp3', function( buffer ) {
